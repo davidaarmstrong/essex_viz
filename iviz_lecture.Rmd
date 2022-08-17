@@ -1,0 +1,505 @@
+---
+title: "The Landscape of Interactive Visualization"
+subtitle: ""  
+author: "Dave Armstrong"
+output:
+  xaringan::moon_reader:
+    chakra: libs/remark-latest.min.js
+    lib_dir: libs
+    css: ["xaringan-themer.css"]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: 16:9
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(dev = 'svg')
+options(device = function(file, width, height) {
+  svg(tempfile(), width = width, height = height)
+})
+knitr::opts_chunk$set(echo=FALSE, message = FALSE, warning = FALSE, tidy=TRUE,  tidy.opts = list(only.comment=TRUE,  width.cutoff=80))
+knitr::opts_chunk$set(fig.retina=2)
+knitr::opts_hooks$set(fig.callout = function(options) {
+  if (options$fig.callout) {
+    options$echo <- FALSE
+    options$out.height <- "99%"
+    #   options$fig.width <- 16
+    #   options$fig.height <- 8
+  }
+  options
+})
+xaringanExtra::use_scribble(pen_color="#3252a8", pen_size=5, 
+    palette=c("#e41a1c", "#4daf4a", "#ff7f00", "#4F2683", "#3252a8") 
+)
+xaringanExtra::use_tile_view()
+xaringanExtra::use_clipboard()
+
+
+library(car)
+library(tibble)
+library(ggplot2)
+library(formatR)
+library(knitr)
+library(pander)
+library(xtable)
+library(dplyr)
+library(tidyr)
+library(xaringanthemer)
+style_mono_accent(base_color = "#4F2683", code_font_size=".65rem", text_font_size = "1.25rem")
+library(glue)
+library(plotly)
+library(psre)
+library(rio)
+library(daviz)
+library(chorddiag)
+library(sf)
+library(countrycode)
+library(crosstalk)
+library(leaflet)
+library(DT)
+data(wvs)
+ifWidget <- function(plot, h=500, w=500, file=1, return=TRUE, selfcontained=TRUE){
+  if(is.numeric(file)){
+    f <- paste0("p.", file, ".html")  
+  }else{
+    f <- file
+  }
+  htmlwidgets::saveWidget(plot, f, selfcontained=selfcontained)
+  if(return){
+  htmltools::tags$iframe(
+    src=f,
+    height=as.character(h),
+    width=as.character(w),
+    scrolling="no", 
+    seamless="seamless", 
+    frameBorder="0")
+  }
+}
+
+```
+
+```{css, echo=FALSE}
+/* custom.css */
+.left-code {
+  color:
+    
+   
+    
+    #  777;
+  width: 35%;
+  height: 92%;
+  float: left;
+}
+.right-plot {
+  width: 63%;
+  float: right;
+  padding-left: 1%;
+}
+.right-plot-shift {
+  width: 63%;
+  float: right;
+  padding-left: 1%;
+  position:relative; 
+  top: -100px;
+}
+.right-plot-shift2 {
+  width: 63%;
+  float: right;
+  padding-left: 1%;
+  position:relative; 
+  top: -50px;
+}
+.right-plot-shift3 {
+  width: 63%;
+  float: right;
+  padding-left: 1%;
+  position:relative; 
+  top: -25px;
+}
+.shift { 
+  position:relative; 
+  top: -100px;
+  }
+
+.shift150 { 
+  position:relative; 
+  top: -150px;
+  }
+
+
+.plot-callout {
+  height: 225px;
+  width: 450px;
+  bottom: 5%;
+  right: 5%;
+  position: absolute;
+  padding: 0px;
+  z-index: 100;
+}
+.plot-callout img {
+  width: 100%;
+  border: 4px solid
+  #  23373B;
+}
+
+.pull-right-shift {
+  float: right;
+  width: 47%;
+  position: relative; 
+  top: -100px;
+}
+
+.pull-right-shift2 {
+  float: right;
+  width: 47%;
+  position:relative; 
+  top: -50px;
+}
+
+
+.pull-right ~ * {
+  clear: both;
+}
+
+
+.mycol {
+  float: left;
+  width: 30%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.myrow::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+```
+
+```{r eval=FALSE}
+remotes::install_github("davidaarmstrong/daviz", ref= "f2addeeac7496a5a85ddbaaf7f59f515fba9a973")
+remotes::install_github("mattflor/chorddiag")
+```
+
+
+## Interactive Displays as HTML (Client-side Computing). 
+1. Introduction
+1. What are the possibilities? 
+  - Points/Lines/Coefficients, Surfaces, Maps, Chords
+2. Software for Web Development. 
+3. Software for Making Interactive Plots. 
+4. Dashboards and Apps. 
+5. Hosting html-only interactive elements. 
+
+---
+
+## Introduction
+
+Interactive graphics allow users (to some degree) to control and interact with a visual display. 
+
+- Client-side computing
+  - Renders directly in the browser (using Javascript). 
+  - Can be hosted on any web server. 
+- Server-side computing   
+  - Requires other non-client-side software (e.g., R, Python, etc...) to do computations on the fly in response to user inputs.
+  - Must be hosted in a special environment (e.g., shiny server). 
+---
+
+
+## Scatterplots
+
+<center>
+
+```{r, "plotly_points"}
+g <- wvs %>% 
+  filter(wave == 5) %>% 
+  mutate(txt = glue("Country: {country}\nGINI: {round(gini_disp,2)}",
+                    "\nEmancipative Values: {round(resemaval, 2)}")) %>% 
+  ggplot(aes(x=gini_disp, y=resemaval, text = txt)) + 
+    geom_point() + 
+  theme_classic() + 
+  labs(x="Gini (disposable income)", y="Emancipative Values")
+ggplotly(g, tooltip = "text")
+```
+
+</center>
+
+---
+
+## Points (Different Series)
+
+<center>
+```{r "plotly_points_colour", out.width="80%"}
+g1 <- wvs %>% 
+  filter(wave == 5) %>% 
+  mutate(txt = glue("Country: {country}\nGINI: {round(gini_disp,2)}",
+                    "\nSecular Values: {round(sacsecval, 2)}"), 
+         Democrat = factor(democrat, 
+                            levels= 1:2, 
+                            labels =c("Non-Democracy", "Democracy"))) %>% 
+  ggplot(aes(x=gini_disp, y=sacsecval, text = txt, colour=Democrat)) + 
+    geom_point() + 
+    theme_classic() + 
+    labs(x = "Gini (disposable income)", y="Emancipative Values")
+ggplotly(g1, tooltip = "text")
+```
+</center>
+
+
+---
+
+
+## Coefficient Plots
+
+<center>
+```{r, "coefd3", results="asis"}
+w2 <- wvs %>% 
+  filter(wave == 5) %>% 
+  mutate(txt = glue("Country: {country}\nGINI: {round(gini_disp,2)}",
+                    "\nSecular Values: {round(sacsecval, 2)}"), 
+         Democrat = factor(democrat, 
+                            levels= 1:2, 
+                            labels =c("Non-Democracy", "Democracy")), 
+         civ_c = case_when(civ == 1 ~ "African", 
+                           civ == 4 ~ "Islamic", 
+                           civ == 6 ~ "Latin American", 
+                           civ == 7 ~ "Orthodox", 
+                           civ == 9 ~ "Western", 
+                           TRUE ~ "Other"), 
+         Civilization = as.factor(civ_c)) 
+mod2 <- lm(resemaval ~ Civilization, data=w2)
+sigd3(mod2, "Civilization", "civ.html")
+```
+
+</center>
+
+---
+
+
+## Lines
+<center>
+```{r "plotly_lines", out.width="100%"}
+g3 <- wvs %>% 
+  group_by(country) %>% 
+  mutate(n = n()) %>% 
+  filter(n == 4) %>% 
+  mutate(txt = glue("Country: {country}", 
+                     "\nWave: {wave}", 
+                     "\nEmancipative Values: {round(resemaval, 2)}"), 
+         wave=as.numeric(wave)) %>% 
+  ggplot(aes(x=wave, y=resemaval, colour=country, text=txt, group=country)) + 
+  geom_line() + 
+  theme_classic() + 
+  labs(x="Wave", y="Emancipative Values")
+ggplotly(g3, tooltip="text")
+
+```
+</center>
+
+---
+
+
+## Chords
+<center>
+```{r, "chords", out.width="75%", results="asis"}
+load("data/ash.rda")
+ash <- ash %>% 
+  mutate(across(starts_with("ashcroft"), rio::factorize),
+         across(starts_with("ashcroft"), as.character), 
+         across(starts_with("ashcroft"), 
+                ~case_when(.x %in% c("Change UK- The Independent Group", 
+                                    "An independent candidate", 
+                                    "British National Party (BNP)") ~ "Other",
+                           TRUE ~ .x))) 
+tab1 <- table(ash$ashcroftW4, ash$ashcroftW5)
+tab2 <- table(ash$ashcroftW5, ash$ashcroftW12)
+tabs <- tab1 + tab2
+colnames(tabs) <- rownames(tabs) <- c("Con", "DK", "Grn", "Abs", "Lab", 
+                                      "LD", "Other", "PC", "SNP", "UKIP")
+tabs2 <- prop.table(tabs, 1)
+chorddiag(tabs, 
+           groupnamePadding = 30, 
+           groupnameFontsize = 12, 
+           groupNames = colnames(tabs),
+           palette = "Set3")
+```
+</center>
+
+---
+
+## Maps
+
+<center>
+```{r "plotly_map", out.width="100%"}
+load("data/fiw.rda")
+data(wrld_simpl, package="maptools")
+wrld_simpl <- as(wrld_simpl, "sf")
+wrld_simpl <- wrld_simpl  %>% 
+  mutate(cown = countrycode(ISO3, "iso3c", "cown"))
+wrld_simpl <- left_join(wrld_simpl, fiw, by="cown") %>% 
+  filter(!is.na(total)) %>% 
+  mutate(txt = glue("Country: {country}", 
+                    "\nFIW: {total}", 
+                    "\nPop: {sprintf('%.1fM',POP2005/1000000)}"))
+g4 <- ggplot(wrld_simpl, aes(fill=total, text=txt)) + 
+  geom_sf(size=.05) + 
+  scale_fill_viridis_c() + 
+  labs(fill="Freedom") + 
+  theme_void() + 
+  theme(axis.line.x = element_blank(), 
+        axis.line.y = element_blank()) 
+ifWidget(ggplotly(g4), file="pmap2.html", h = 500, w=1500) 
+```
+</center>
+
+---
+
+## Other map options
+
+- [Leaflet](https://leafletjs.com)
+- [Mapbox](https://www.mapbox.com)
+
+---
+
+## Surfaces
+
+```{r "plotly_surf1", cache=TRUE}
+wvs3 <- wvs %>% 
+  mutate(dem1 = as.numeric(democrat == 1), 
+         dem2 = as.numeric(democrat == 2))
+library(mgcv)
+m3 <- gam(resemaval ~ 
+           te(gini_disp, by=dem1) + 
+           te(gdp_cap, by = dem1) + 
+           ti(gini_disp, gdp_cap, by=dem1) + 
+           te(gini_disp, by=dem2) + 
+           te(gdp_cap, by = dem2) + 
+           ti(gini_disp, gdp_cap, by=dem2),
+          data=wvs3)
+
+s_gini <- seq(min(wvs$gini_disp, na.rm=TRUE), 
+         max(wvs$gini_disp, na.rm=TRUE), 
+         length=25)
+s_gdp_cap <- seq(min(wvs$gdp_cap, na.rm=TRUE), 
+         max(wvs$gdp_cap, na.rm=TRUE), 
+         length=25)
+
+predfun <- Vectorize(function(gini, gdp, democrat = 1){
+  tmp <- data.frame(gini_disp = gini, 
+                    gdp_cap = gdp, 
+                    dem1 = as.numeric(democrat == 1), 
+                    dem2 = as.numeric(democrat == 2))
+  predict(m3, newdata=tmp)
+})
+
+o1 <- outer(s_gini, s_gdp_cap, predfun, democrat = 1)
+o2 <- outer(s_gini, s_gdp_cap, predfun, democrat = 2)
+```
+<center>
+```{r "plotly_surf2"}
+col1 <- rep(0, length(o1))
+dim(col1) <- dim(o1)
+col2 <- rep(1, length(o2))
+dim(col2) <- dim(o2)
+
+p <- plot_ly(colors = c("red", "blue")) %>% 
+  add_surface(x = ~s_gini, y= ~ s_gdp_cap, z = ~o1, 
+             surfacecolor=col1,
+             opacity=.7,
+             showscale = FALSE,
+             showlegend=FALSE,
+             name = "Non-Democracies",
+             cauto=F,
+             cmax=1,
+             cmin=0) %>% 
+    add_surface(x = ~s_gini, y= ~ s_gdp_cap, z = ~o2, 
+             surfacecolor=col2,
+             opacity=.7, 
+             showscale = FALSE, 
+             showlegend=FALSE,
+             name = "Democracies", 
+             cauto=F,
+             cmax=1,
+             cmin=0) %>% 
+  layout(scene = list(
+    xaxis = list(title="Gini"), 
+    yaxis = list(title = "GDP/capita"), 
+    zaxis = list(title="Emancipative Values")))
+ifWidget(p, h=500, w=1000, file="surf.html")
+```
+</center>
+
+---
+
+## Software for Web Development
+
+- Javascript (JS)
+  - I took [this Udemy course](https://www.udemy.com/course/the-complete-javascript-course/). 
+- Cascading Style Sheets (CSS)
+  - I took [this Udemy course](https://www.udemy.com/course/design-and-develop-a-killer-website-with-html5-and-css3/). 
+- HTML 
+  - You should learn some of the basics of HTML.  [Here is a Udemy course](https://www.udemy.com/course/intro-to-html-web-development/) that should help. 
+  
+
+---
+
+## Software for Interactive Graphics 
+
+- Plotly
+  - Here is the [main Plotly project page](https://plotly.com)
+  - Here is the [Gallery](https://plotly.com/python/)
+- Highcharts
+  - Here is the [main Highcharts project page](https://www.highcharts.com/blog/tutorials/python-angular-and-highcharts/)
+  - Here is a link to the [Gallery](https://www.highcharts.com/demo)
+- Bokeh
+  - Here is the [main Bokeh project page](https://docs.bokeh.org)
+  - Here is the [Gallery](https://docs.bokeh.org/en/latest/docs/gallery.html#standalone-examples)
+- D3.js
+  - For the most flexibility, [D3.js](https://d3js.org) has a lot to offer, but the learning curve is much steeper. 
+  - Here is the [Gallery](https://observablehq.com/@d3/gallery) 
+  
+---
+
+## High-level Interaction
+
+- Both R and Python have interfaces to the libraries mentioned above. 
+  - R: [plotly](https://plotly.com/r/), [highcharter](https://jkunst.com/highcharter/), [rbokeh](https://hafen.github.io/rbokeh/), [D3.js](https://rstudio.github.io/r2d3/)
+  - Python: [plotly.py](https://plotly.com/python/), [python-highcharts](https://github.com/kyper-data/python-highcharts), [Bokeh](https://bokeh.org), [D3.js examples](https://towardsdatascience.com/creating-beautiful-stand-alone-interactive-d3-charts-with-python-804117cb95a7)
+- Stata has some nascent (user-written) facility with D3 graphs. 
+  - [stata2d3](https://github.com/robertgrant/stata2d3)
+  - [Presentation](https://www.stata.com/meeting/uk14/abstracts/materials/uk14_grant.pdf)
+  - Limited [Highcharts functionality](https://github.com/bsouthga/stataHC). 
+  - Could get other options through Python and R integration. 
+
+---
+
+## Dashboards and Apps
+
+Both Python and R have native dashboarding capabilities (Dash and Shiny, respectively). 
+  - Dash also works with R and Julia. 
+
+Some Dashboards can be made with only client-side computing. 
+  - Filtering, selecting, highlighting 
+  - Requires relatively small data.
+  - [Example](http://quantoid.surge.sh/apps/covid_dashboard_param.html)
+  
+Any dashboard or app that requires data manipulation, models, etc... require server-side computing. 
+  - [Example](https://quantoid.shinyapps.io/CES_2020/)
+
+---
+
+## Hosting
+
+Client-side Dashboards
+  - Any web-hosting platform. 
+  - [Surge](https://surge.sh) which is free, pretty easy to use and gives you a access to a free domain (e.g, `quantoid.surge.sh`). 
+  
+Server-side Apps and Dashboards
+  - [Shinyapps.io](https://shinyapps.io) has several tiered plans (including free) depending on resource needs.
+  - If money is no object, [RStudio connect](https://www.rstudio.com/products/connect/) may be the right option. 
+  - [Here](https://hosting.analythium.io/how-to-pick-the-right-hosting-option-for-your-shiny-app/) is a discussion of many of the common options. 

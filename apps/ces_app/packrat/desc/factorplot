@@ -1,0 +1,25 @@
+Package: factorplot
+Type: Package
+Title: Tools for Presenting Pairwise Comparisons
+Version: 1.2.1
+Author: Dave Armstrong
+Maintainer: Dave Armstrong <dave@quantoid.net>
+Depends: multcomp
+Suggests: nnet, carData
+Description: The tools herein calculate, print, summarize and plot pairwise differences that result from generalized linear models, general linear hypothesis tests and multinomial logistic regression models. For more informatin, see Armstrong (2013) <doi: 10.32614/RJ-2013-021>.
+License: GPL (>=2)
+LazyLoad: yes
+RoxygenNote: 7.0.2
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: factorplot
+RemoteUsername: davidaarmstrong
+RemoteRef: master
+RemoteSha: 5aafa80beee2c19709243eabc62bf555e35a6a34
+GithubRepo: factorplot
+GithubUsername: davidaarmstrong
+GithubRef: master
+GithubSHA1: 5aafa80beee2c19709243eabc62bf555e35a6a34
+NeedsCompilation: no
+Packaged: 2020-03-17 13:53:39 UTC; david
+Built: R 3.6.2; ; 2020-03-17 13:53:39 UTC; unix

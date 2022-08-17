@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>The Landscape of Interactive Visualization</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dave Armstrong" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/fabric/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#3252a8"],"pen_size":5,"eraser_size":50,"palette":["#e41a1c","#4daf4a","#ff7f00","#4F2683","#3252a8"]}) })</script>
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <script src="libs/clipboard/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/plotly-binding/plotly.js"></script>
+    <script src="libs/typedarray/typedarray.min.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
+    <link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="libs/plotly-main/plotly-latest.min.js"></script>
+    <script src="libs/d3/d3.min.js"></script>
+    <script src="libs/d3-tip/index.js"></script>
+    <link href="libs/chorddiag/chorddiag.css" rel="stylesheet" />
+    <script src="libs/chorddiag/chorddiag.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# The Landscape of Interactive Visualization
+]
+.author[
+### Dave Armstrong
+]
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+/* custom.css */
+.left-code {
+  color:
+    
+   
+    
+    #  777;
+  width: 35%;
+  height: 92%;
+  float: left;
+}
+.right-plot {
+  width: 63%;
+  float: right;
+  padding-left: 1%;
+}
+.right-plot-shift {
+  width: 63%;
+  float: right;
+  padding-left: 1%;
+  position:relative; 
+  top: -100px;
+}
+.right-plot-shift2 {
+  width: 63%;
+  float: right;
+  padding-left: 1%;
+  position:relative; 
+  top: -50px;
+}
+.right-plot-shift3 {
+  width: 63%;
+  float: right;
+  padding-left: 1%;
+  position:relative; 
+  top: -25px;
+}
+.shift { 
+  position:relative; 
+  top: -100px;
+  }
+
+.shift150 { 
+  position:relative; 
+  top: -150px;
+  }
+
+
+.plot-callout {
+  height: 225px;
+  width: 450px;
+  bottom: 5%;
+  right: 5%;
+  position: absolute;
+  padding: 0px;
+  z-index: 100;
+}
+.plot-callout img {
+  width: 100%;
+  border: 4px solid
+  #  23373B;
+}
+
+.pull-right-shift {
+  float: right;
+  width: 47%;
+  position: relative; 
+  top: -100px;
+}
+
+.pull-right-shift2 {
+  float: right;
+  width: 47%;
+  position:relative; 
+  top: -50px;
+}
+
+
+.pull-right ~ * {
+  clear: both;
+}
+
+
+.mycol {
+  float: left;
+  width: 30%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.myrow::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+&lt;/style&gt;
+
+
+
+
+## Interactive Displays as HTML (Client-side Computing). 
+1. Introduction
+1. What are the possibilities? 
+  - Points/Lines/Coefficients, Surfaces, Maps, Chords
+2. Software for Web Development. 
+3. Software for Making Interactive Plots. 
+4. Dashboards and Apps. 
+5. Hosting html-only interactive elements. 
+
+---
+
+## Introduction
+
+Interactive graphics allow users (to some degree) to control and interact with a visual display. 
+
+- Client-side computing
+  - Renders directly in the browser (using Javascript). 
+  - Can be hosted on any web server. 
+- Server-side computing   
+  - Requires other non-client-side software (e.g., R, Python, etc...) to do computations on the fly in response to user inputs.
+  - Must be hosted in a special environment (e.g., shiny server). 
+---
+
+
+## Scatterplots
+
+&lt;center&gt;
+
+<div id="htmlwidget-5a016714efa375c8bd45" style="width:504px;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5a016714efa375c8bd45">{"x":{"data":[{"x":[0.432889065742493,0.318948581516743,0.502698465585709,0.332342469394207,0.446065247356892,0.311060812175274,0.48080952167511,0.424861568510532,0.525320916175842,0.297554865479469,0.415311104059219,0.327082408070564,0.255482074916363,0.284280958175659,0.397374596595764,0.28635891109705,0.429379344284534,0.487249595224857,0.27100723773241,0.476791571378708,0.431409602165222,0.402939423024654,0.326710223853588,0.32981864631176,0.302654528021812,0.366167596876621,0.419346818625927,0.403059430420399,0.47114492058754,0.377991893291473,0.415597627460957,0.267196742594242,0.323652691543102,0.246778182983398,0.514358665943146,0.31875358581543,0.319810782074928,0.368064341843128,0.512745163738728,0.344346861243248,0.238816107660532,0.632090612053871,0.309400681257248,0.313511733412743,0.245013947635889,0.300471465587616,0.305712878704071,0.427796150743961,0.411337785422802,0.284516388326883,0.337288747131824,0.385042350888252,0.421961636543274,0.344888732433319,0.555838390290737],"y":[0.489110263406314,0.585394726459259,0.441227946549654,0.451275643792104,0.294897936014374,0.590169549680379,0.457923839181662,0.32993291085469,0.409742356713646,0.442476344605287,0.22670173885863,0.468884392753243,0.616512976384757,0.580286586178945,0.332236576028168,0.610052562170741,0.288719667000344,0.41094050758332,0.501626438171766,0.313700852951948,0.330420308338279,0.333621804338796,0.227266673012459,0.498774253582884,0.515988386915929,0.227325603406255,0.386514912676578,0.313574887362869,0.461120226229422,0.407059889945627,0.339057691564279,0.600231373437813,0.55479461381083,0.718165674224132,0.436919842481613,0.421948021359742,0.366961546357604,0.370347931078625,0.321634399053884,0.457329213112348,0.581377925891914,0.414741598473615,0.451104570229848,0.543070670505986,0.731838676235374,0.64340103965772,0.410510384949029,0.36990358819153,0.347772354669703,0.380176997605711,0.572466620629677,0.50786467621012,0.539817911416292,0.35708117237109,0.395911633829276],"text":["Country: Argentina<br />GINI: 0.43<br />Emancipative Values: 0.49","Country: Australia<br />GINI: 0.32<br />Emancipative Values: 0.59","Country: Brazil<br />GINI: 0.5<br />Emancipative Values: 0.44","Country: Bulgaria<br />GINI: 0.33<br />Emancipative Values: 0.45","Country: Burkina Faso<br />GINI: 0.45<br />Emancipative Values: 0.29","Country: Canada<br />GINI: 0.31<br />Emancipative Values: 0.59","Country: Chile<br />GINI: 0.48<br />Emancipative Values: 0.46","Country: China<br />GINI: 0.42<br />Emancipative Values: 0.33","Country: Colombia<br />GINI: 0.53<br />Emancipative Values: 0.41","Country: Cyprus<br />GINI: 0.3<br />Emancipative Values: 0.44","Country: Egypt<br />GINI: 0.42<br />Emancipative Values: 0.23","Country: Ethiopia<br />GINI: 0.33<br />Emancipative Values: 0.47","Country: Finland<br />GINI: 0.26<br />Emancipative Values: 0.62","Country: France<br />GINI: 0.28<br />Emancipative Values: 0.58","Country: Georgia<br />GINI: 0.4<br />Emancipative Values: 0.33","Country: Germany<br />GINI: 0.29<br />Emancipative Values: 0.61","Country: Ghana<br />GINI: 0.43<br />Emancipative Values: 0.29","Country: Guatemala<br />GINI: 0.49<br />Emancipative Values: 0.41","Country: Hungary<br />GINI: 0.27<br />Emancipative Values: 0.5","Country: India<br />GINI: 0.48<br />Emancipative Values: 0.31","Country: Indonesia<br />GINI: 0.43<br />Emancipative Values: 0.33","Country: Iran<br />GINI: 0.4<br />Emancipative Values: 0.33","Country: Iraq<br />GINI: 0.33<br />Emancipative Values: 0.23","Country: Italy<br />GINI: 0.33<br />Emancipative Values: 0.5","Country: Japan<br />GINI: 0.3<br />Emancipative Values: 0.52","Country: Jordan<br />GINI: 0.37<br />Emancipative Values: 0.23","Country: Malaysia<br />GINI: 0.42<br />Emancipative Values: 0.39","Country: Mali<br />GINI: 0.4<br />Emancipative Values: 0.31","Country: Mexico<br />GINI: 0.47<br />Emancipative Values: 0.46","Country: Moldova<br />GINI: 0.38<br />Emancipative Values: 0.41","Country: Morocco<br />GINI: 0.42<br />Emancipative Values: 0.34","Country: Netherlands<br />GINI: 0.27<br />Emancipative Values: 0.6","Country: New Zealand<br />GINI: 0.32<br />Emancipative Values: 0.55","Country: Norway<br />GINI: 0.25<br />Emancipative Values: 0.72","Country: Peru<br />GINI: 0.51<br />Emancipative Values: 0.44","Country: Poland<br />GINI: 0.32<br />Emancipative Values: 0.42","Country: Romania<br />GINI: 0.32<br />Emancipative Values: 0.37","Country: Russia<br />GINI: 0.37<br />Emancipative Values: 0.37","Country: Rwanda<br />GINI: 0.51<br />Emancipative Values: 0.32","Country: Serbia<br />GINI: 0.34<br />Emancipative Values: 0.46","Country: Slovenia<br />GINI: 0.24<br />Emancipative Values: 0.58","Country: South Africa<br />GINI: 0.63<br />Emancipative Values: 0.41","Country: South Korea<br />GINI: 0.31<br />Emancipative Values: 0.45","Country: Spain<br />GINI: 0.31<br />Emancipative Values: 0.54","Country: Sweden<br />GINI: 0.25<br />Emancipative Values: 0.73","Country: Switzerland<br />GINI: 0.3<br />Emancipative Values: 0.64","Country: Taiwan<br />GINI: 0.31<br />Emancipative Values: 0.41","Country: Thailand<br />GINI: 0.43<br />Emancipative Values: 0.37","Country: Turkey<br />GINI: 0.41<br />Emancipative Values: 0.35","Country: Ukraine<br />GINI: 0.28<br />Emancipative Values: 0.38","Country: United Kingdom<br />GINI: 0.34<br />Emancipative Values: 0.57","Country: United States<br />GINI: 0.39<br />Emancipative Values: 0.51","Country: Uruguay<br />GINI: 0.42<br />Emancipative Values: 0.54","Country: Vietnam<br />GINI: 0.34<br />Emancipative Values: 0.36","Country: Zambia<br />GINI: 0.56<br />Emancipative Values: 0.4"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,0,0,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":23.3059360730594,"r":7.30593607305936,"b":37.2602739726027,"l":43.1050228310502},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.219152382440865,0.651754337273538],"tickmode":"array","ticktext":["0.3","0.4","0.5","0.6"],"tickvals":[0.3,0.4,0.5,0.6],"categoryorder":"array","categoryarray":["0.3","0.4","0.5","0.6"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Gini (disposable income)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.201444891989793,0.757095523104211],"tickmode":"array","ticktext":["0.3","0.4","0.5","0.6","0.7"],"tickvals":[0.3,0.4,0.5,0.6,0.7],"categoryorder":"array","categoryarray":["0.3","0.4","0.5","0.6","0.7"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Emancipative Values","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"fb82530160c":{"x":{},"y":{},"text":{},"type":"scatter"}},"cur_data":"fb82530160c","visdat":{"fb82530160c":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+&lt;/center&gt;
+
+---
+
+## Points (Different Series)
+
+&lt;center&gt;
+<div id="htmlwidget-617f1277d17cd4493747" style="width:80%;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-617f1277d17cd4493747">{"x":{"data":[{"x":[0.502698465585709,0.446065247356892,0.424861568510532,0.525320916175842,0.415311104059219,0.327082408070564,0.397374596595764,0.487249595224857,0.431409602165222,0.402939423024654,0.326710223853588,0.366167596876621,0.419346818625927,0.47114492058754,0.377991893291473,0.415597627460957,0.514358665943146,0.368064341843128,0.512745163738728,0.427796150743961,0.411337785422802,0.284516388326883,0.344888732433319,0.555838390290737],"y":[0.365150450649361,0.275743956407447,0.362005352914064,0.339198696857149,0.166653183921964,0.305471045315266,0.276814702965319,0.336052123122849,0.27973263392909,0.308574681567153,1.77964904969252e-43,0.106547940028055,0.335600395957559,0.351518707524221,0.471295470368281,0.209541330407374,0.378847290386756,0.446573459469533,0.255856888503449,0.456078112404672,0.242842746910986,0.459899679504335,0.278286594087663,0.367352183640003],"text":["Country: Brazil<br />GINI: 0.5<br />Secular Values: 0.37","Country: Burkina Faso<br />GINI: 0.45<br />Secular Values: 0.28","Country: China<br />GINI: 0.42<br />Secular Values: 0.36","Country: Colombia<br />GINI: 0.53<br />Secular Values: 0.34","Country: Egypt<br />GINI: 0.42<br />Secular Values: 0.17","Country: Ethiopia<br />GINI: 0.33<br />Secular Values: 0.31","Country: Georgia<br />GINI: 0.4<br />Secular Values: 0.28","Country: Guatemala<br />GINI: 0.49<br />Secular Values: 0.34","Country: Indonesia<br />GINI: 0.43<br />Secular Values: 0.28","Country: Iran<br />GINI: 0.4<br />Secular Values: 0.31","Country: Iraq<br />GINI: 0.33<br />Secular Values: 0","Country: Jordan<br />GINI: 0.37<br />Secular Values: 0.11","Country: Malaysia<br />GINI: 0.42<br />Secular Values: 0.34","Country: Mexico<br />GINI: 0.47<br />Secular Values: 0.35","Country: Moldova<br />GINI: 0.38<br />Secular Values: 0.47","Country: Morocco<br />GINI: 0.42<br />Secular Values: 0.21","Country: Peru<br />GINI: 0.51<br />Secular Values: 0.38","Country: Russia<br />GINI: 0.37<br />Secular Values: 0.45","Country: Rwanda<br />GINI: 0.51<br />Secular Values: 0.26","Country: Thailand<br />GINI: 0.43<br />Secular Values: 0.46","Country: Turkey<br />GINI: 0.41<br />Secular Values: 0.24","Country: Ukraine<br />GINI: 0.28<br />Secular Values: 0.46","Country: Vietnam<br />GINI: 0.34<br />Secular Values: 0.28","Country: Zambia<br />GINI: 0.56<br />Secular Values: 0.37"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"Non-Democracy","legendgroup":"Non-Democracy","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[0.432889065742493,0.318948581516743,0.332342469394207,0.311060812175274,0.48080952167511,0.297554865479469,0.255482074916363,0.284280958175659,0.28635891109705,0.429379344284534,0.27100723773241,0.476791571378708,0.32981864631176,0.302654528021812,0.403059430420399,0.267196742594242,0.323652691543102,0.246778182983398,0.31875358581543,0.319810782074928,0.344346861243248,0.238816107660532,0.632090612053871,0.309400681257248,0.313511733412743,0.245013947635889,0.300471465587616,0.305712878704071,0.337288747131824,0.385042350888252,0.421961636543274],"y":[0.372814711209335,0.384348892417384,0.421362317183039,0.328399245685325,0.394040472660214,0.325962268160213,0.400750114701879,0.454770945883416,0.454962331978532,0.215196579544182,0.474058905344497,0.288105016446969,0.328998520642725,0.465312815930722,0.238685749165806,0.433529279590363,0.402384243140181,0.459461555495495,0.325635758250952,0.311529055155965,0.464989438994986,0.448134525784129,0.309895548229873,0.461101023741066,0.413029334542031,0.522481971001578,0.406859625130892,0.490426482282087,0.397745166990215,0.313286082346359,0.417602800358087],"text":["Country: Argentina<br />GINI: 0.43<br />Secular Values: 0.37","Country: Australia<br />GINI: 0.32<br />Secular Values: 0.38","Country: Bulgaria<br />GINI: 0.33<br />Secular Values: 0.42","Country: Canada<br />GINI: 0.31<br />Secular Values: 0.33","Country: Chile<br />GINI: 0.48<br />Secular Values: 0.39","Country: Cyprus<br />GINI: 0.3<br />Secular Values: 0.33","Country: Finland<br />GINI: 0.26<br />Secular Values: 0.4","Country: France<br />GINI: 0.28<br />Secular Values: 0.45","Country: Germany<br />GINI: 0.29<br />Secular Values: 0.45","Country: Ghana<br />GINI: 0.43<br />Secular Values: 0.22","Country: Hungary<br />GINI: 0.27<br />Secular Values: 0.47","Country: India<br />GINI: 0.48<br />Secular Values: 0.29","Country: Italy<br />GINI: 0.33<br />Secular Values: 0.33","Country: Japan<br />GINI: 0.3<br />Secular Values: 0.47","Country: Mali<br />GINI: 0.4<br />Secular Values: 0.24","Country: Netherlands<br />GINI: 0.27<br />Secular Values: 0.43","Country: New Zealand<br />GINI: 0.32<br />Secular Values: 0.4","Country: Norway<br />GINI: 0.25<br />Secular Values: 0.46","Country: Poland<br />GINI: 0.32<br />Secular Values: 0.33","Country: Romania<br />GINI: 0.32<br />Secular Values: 0.31","Country: Serbia<br />GINI: 0.34<br />Secular Values: 0.46","Country: Slovenia<br />GINI: 0.24<br />Secular Values: 0.45","Country: South Africa<br />GINI: 0.63<br />Secular Values: 0.31","Country: South Korea<br />GINI: 0.31<br />Secular Values: 0.46","Country: Spain<br />GINI: 0.31<br />Secular Values: 0.41","Country: Sweden<br />GINI: 0.25<br />Secular Values: 0.52","Country: Switzerland<br />GINI: 0.3<br />Secular Values: 0.41","Country: Taiwan<br />GINI: 0.31<br />Secular Values: 0.49","Country: United Kingdom<br />GINI: 0.34<br />Secular Values: 0.4","Country: United States<br />GINI: 0.39<br />Secular Values: 0.31","Country: Uruguay<br />GINI: 0.42<br />Secular Values: 0.42"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,191,196,1)"}},"hoveron":"points","name":"Democracy","legendgroup":"Democracy","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":23.3059360730594,"r":7.30593607305936,"b":37.2602739726027,"l":43.1050228310502},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.219152382440865,0.651754337273538],"tickmode":"array","ticktext":["0.3","0.4","0.5","0.6"],"tickvals":[0.3,0.4,0.5,0.6],"categoryorder":"array","categoryarray":["0.3","0.4","0.5","0.6"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Gini (disposable income)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-0.0261240985500789,0.548606069551656],"tickmode":"array","ticktext":["0.0","0.1","0.2","0.3","0.4","0.5"],"tickvals":[0,0.1,0.2,0.3,0.4,0.5],"categoryorder":"array","categoryarray":["0.0","0.1","0.2","0.3","0.4","0.5"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Emancipative Values","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"Democrat","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"fb83a76917d":{"x":{},"y":{},"text":{},"colour":{},"type":"scatter"}},"cur_data":"fb83a76917d","visdat":{"fb83a76917d":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+&lt;/center&gt;
+
+
+---
+
+
+## Coefficient Plots
+
+&lt;center&gt;
+<iframe src="civ.html" height="525" width="656.25" style="border: none"></iframe>
+
+&lt;/center&gt;
+
+---
+
+
+## Lines
+&lt;center&gt;
+<div id="htmlwidget-216c28723d6ff461946f" style="width:100%;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-216c28723d6ff461946f">{"x":{"data":[{"x":[2,3,4,5],"y":[0.458229567818418,0.503532949904113,0.481265602523659,0.489110263406314],"text":["Country: Argentina<br />Wave: 2<br />Emancipative Values: 0.46","Country: Argentina<br />Wave: 3<br />Emancipative Values: 0.5","Country: Argentina<br />Wave: 4<br />Emancipative Values: 0.48","Country: Argentina<br />Wave: 5<br />Emancipative Values: 0.49"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)","dash":"solid"},"hoveron":"points","name":"Argentina","legendgroup":"Argentina","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2,3,4,5],"y":[0.379442999362946,0.428447626989335,0.455862866722548,0.457923839181662],"text":["Country: Chile<br />Wave: 2<br />Emancipative Values: 0.38","Country: Chile<br />Wave: 3<br />Emancipative Values: 0.43","Country: Chile<br />Wave: 4<br />Emancipative Values: 0.46","Country: Chile<br />Wave: 5<br />Emancipative Values: 0.46"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(216,144,0,1)","dash":"solid"},"hoveron":"points","name":"Chile","legendgroup":"Chile","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2,3,4,5],"y":[0.399967012688518,0.35090446472168,0.392605712799168,0.32993291085469],"text":["Country: China<br />Wave: 2<br />Emancipative Values: 0.4","Country: China<br />Wave: 3<br />Emancipative Values: 0.35","Country: China<br />Wave: 4<br />Emancipative Values: 0.39","Country: China<br />Wave: 5<br />Emancipative Values: 0.33"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(163,165,0,1)","dash":"solid"},"hoveron":"points","name":"China","legendgroup":"China","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2,3,4,5],"y":[0.295918922382593,0.267847205105,0.346718503581267,0.313700852951948],"text":["Country: India<br />Wave: 2<br />Emancipative Values: 0.3","Country: India<br />Wave: 3<br />Emancipative Values: 0.27","Country: India<br />Wave: 4<br />Emancipative Values: 0.35","Country: India<br />Wave: 5<br />Emancipative Values: 0.31"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(57,182,0,1)","dash":"solid"},"hoveron":"points","name":"India","legendgroup":"India","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2,3,4,5],"y":[0.399332447845257,0.456748760543919,0.54931037587007,0.515988386915929],"text":["Country: Japan<br />Wave: 2<br />Emancipative Values: 0.4","Country: Japan<br />Wave: 3<br />Emancipative Values: 0.46","Country: Japan<br />Wave: 4<br />Emancipative Values: 0.55","Country: Japan<br />Wave: 5<br />Emancipative Values: 0.52"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,191,125,1)","dash":"solid"},"hoveron":"points","name":"Japan","legendgroup":"Japan","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2,3,4,5],"y":[0.419635180493416,0.3942764262934,0.437094803191489,0.461120226229422],"text":["Country: Mexico<br />Wave: 2<br />Emancipative Values: 0.42","Country: Mexico<br />Wave: 3<br />Emancipative Values: 0.39","Country: Mexico<br />Wave: 4<br />Emancipative Values: 0.44","Country: Mexico<br />Wave: 5<br />Emancipative Values: 0.46"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,191,196,1)","dash":"solid"},"hoveron":"points","name":"Mexico","legendgroup":"Mexico","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2,3,4,5],"y":[0.346157369378148,0.359431546698031,0.404296882804674,0.414741598473615],"text":["Country: South Africa<br />Wave: 2<br />Emancipative Values: 0.35","Country: South Africa<br />Wave: 3<br />Emancipative Values: 0.36","Country: South Africa<br />Wave: 4<br />Emancipative Values: 0.4","Country: South Africa<br />Wave: 5<br />Emancipative Values: 0.41"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(0,176,246,1)","dash":"solid"},"hoveron":"points","name":"South Africa","legendgroup":"South Africa","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2,3,4,5],"y":[0.403304974976585,0.377862202181064,0.4501782235196,0.451104570229848],"text":["Country: South Korea<br />Wave: 2<br />Emancipative Values: 0.4","Country: South Korea<br />Wave: 3<br />Emancipative Values: 0.38","Country: South Korea<br />Wave: 4<br />Emancipative Values: 0.45","Country: South Korea<br />Wave: 5<br />Emancipative Values: 0.45"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(149,144,255,1)","dash":"solid"},"hoveron":"points","name":"South Korea","legendgroup":"South Korea","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2,3,4,5],"y":[0.454240077117224,0.479761122728211,0.535812859766277,0.543070670505986],"text":["Country: Spain<br />Wave: 2<br />Emancipative Values: 0.45","Country: Spain<br />Wave: 3<br />Emancipative Values: 0.48","Country: Spain<br />Wave: 4<br />Emancipative Values: 0.54","Country: Spain<br />Wave: 5<br />Emancipative Values: 0.54"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(231,107,243,1)","dash":"solid"},"hoveron":"points","name":"Spain","legendgroup":"Spain","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2,3,4,5],"y":[0.377397676311361,0.367107669361362,0.377847243733011,0.347772354669703],"text":["Country: Turkey<br />Wave: 2<br />Emancipative Values: 0.38","Country: Turkey<br />Wave: 3<br />Emancipative Values: 0.37","Country: Turkey<br />Wave: 4<br />Emancipative Values: 0.38","Country: Turkey<br />Wave: 5<br />Emancipative Values: 0.35"],"type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(255,98,188,1)","dash":"solid"},"hoveron":"points","name":"Turkey","legendgroup":"Turkey","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":23.3059360730594,"r":7.30593607305936,"b":37.2602739726027,"l":48.9497716894977},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1.85,5.15],"tickmode":"array","ticktext":["2","3","4","5"],"tickvals":[2,3,4,5],"categoryorder":"array","categoryarray":["2","3","4","5"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"Wave","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.253774046566747,0.563383534408323],"tickmode":"array","ticktext":["0.30","0.35","0.40","0.45","0.50","0.55"],"tickvals":[0.3,0.35,0.4,0.45,0.5,0.55],"categoryorder":"array","categoryarray":["0.30","0.35","0.40","0.45","0.50","0.55"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.65296803652968,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"Emancipative Values","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":{"text":"country","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"fb81e48eef9":{"x":{},"y":{},"colour":{},"text":{},"type":"scatter"}},"cur_data":"fb81e48eef9","visdat":{"fb81e48eef9":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+&lt;/center&gt;
+
+---
+
+
+## Chords
+&lt;center&gt;
+<div id="htmlwidget-86e66e8c100435a90d0a" style="width:75%;height:504px;" class="chorddiag html-widget"></div>
+<script type="application/json" data-for="htmlwidget-86e66e8c100435a90d0a">{"x":{"matrix":[[6419,349,26,32,230,179,15,11,25,185],[651,2272,135,220,680,276,60,31,113,240],[39,126,827,13,201,89,15,12,38,12],[60,149,15,695,88,15,3,4,10,33],[247,382,122,51,6800,196,19,26,68,96],[134,132,36,19,130,1317,9,11,12,30],[15,23,12,3,25,7,75,1,21,16],[13,21,5,4,45,15,3,213,2,8],[20,48,12,8,40,17,5,0,1986,9],[395,219,15,28,143,36,14,10,19,2375]],"options":{"type":"directional","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["Con","DK","Grn","Abs","Lab","LD","Other","PC","SNP","UKIP"],"groupColors":["#8DD3C7","#FFFFB3","#BEBADA","#FB8072","#80B1D3","#FDB462","#B3DE69","#FCCDE5","#D9D9D9","#BC80BD"],"groupThickness":0.1,"groupPadding":0.0349065850398866,"groupnamePadding":[30,30,30,30,30,30,30,30,30,30],"groupnameFontsize":12,"groupedgeColor":null,"chordedgeColor":"#808080","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":true,"tickInterval":100,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["Con","DK","Grn","Abs","Lab","LD","Other","PC","SNP","UKIP"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script>
+&lt;/center&gt;
+
+---
+
+## Maps
+
+&lt;center&gt;
+<iframe src="pmap2.html" height="500" width="1500" scrolling="no" seamless="seamless" frameBorder="0"></iframe>
+&lt;/center&gt;
+
+---
+
+## Other map options
+
+- [Leaflet](https://leafletjs.com)
+- [Mapbox](https://www.mapbox.com)
+
+---
+
+## Surfaces
+
+
+&lt;center&gt;
+<iframe src="surf.html" height="500" width="1000" scrolling="no" seamless="seamless" frameBorder="0"></iframe>
+&lt;/center&gt;
+
+---
+
+## Software for Web Development
+
+- Javascript (JS)
+  - I took [this Udemy course](https://www.udemy.com/course/the-complete-javascript-course/). 
+- Cascading Style Sheets (CSS)
+  - I took [this Udemy course](https://www.udemy.com/course/design-and-develop-a-killer-website-with-html5-and-css3/). 
+- HTML 
+  - You should learn some of the basics of HTML.  [Here is a Udemy course](https://www.udemy.com/course/intro-to-html-web-development/) that should help. 
+  
+
+---
+
+## Software for Interactive Graphics 
+
+- Plotly
+  - Here is the [main Plotly project page](https://plotly.com)
+  - Here is the [Gallery](https://plotly.com/python/)
+- Highcharts
+  - Here is the [main Highcharts project page](https://www.highcharts.com/blog/tutorials/python-angular-and-highcharts/)
+  - Here is a link to the [Gallery](https://www.highcharts.com/demo)
+- Bokeh
+  - Here is the [main Bokeh project page](https://docs.bokeh.org)
+  - Here is the [Gallery](https://docs.bokeh.org/en/latest/docs/gallery.html#standalone-examples)
+- D3.js
+  - For the most flexibility, [D3.js](https://d3js.org) has a lot to offer, but the learning curve is much steeper. 
+  - Here is the [Gallery](https://observablehq.com/@d3/gallery) 
+  
+---
+
+## High-level Interaction
+
+- Both R and Python have interfaces to the libraries mentioned above. 
+  - R: [plotly](https://plotly.com/r/), [highcharter](https://jkunst.com/highcharter/), [rbokeh](https://hafen.github.io/rbokeh/), [D3.js](https://rstudio.github.io/r2d3/)
+  - Python: [plotly.py](https://plotly.com/python/), [python-highcharts](https://github.com/kyper-data/python-highcharts), [Bokeh](https://bokeh.org), [D3.js examples](https://towardsdatascience.com/creating-beautiful-stand-alone-interactive-d3-charts-with-python-804117cb95a7)
+- Stata has some nascent (user-written) facility with D3 graphs. 
+  - [stata2d3](https://github.com/robertgrant/stata2d3)
+  - [Presentation](https://www.stata.com/meeting/uk14/abstracts/materials/uk14_grant.pdf)
+  - Limited [Highcharts functionality](https://github.com/bsouthga/stataHC). 
+  - Could get other options through Python and R integration. 
+
+---
+
+## Dashboards and Apps
+
+Both Python and R have native dashboarding capabilities (Dash and Shiny, respectively). 
+  - Dash also works with R and Julia. 
+
+Some Dashboards can be made with only client-side computing. 
+  - Filtering, selecting, highlighting 
+  - Requires relatively small data.
+  - [Example](http://quantoid.surge.sh/apps/covid_dashboard_param.html)
+  
+Any dashboard or app that requires data manipulation, models, etc... require server-side computing. 
+  - [Example](https://quantoid.shinyapps.io/CES_2020/)
+
+---
+
+## Hosting
+
+Client-side Dashboards
+  - Any web-hosting platform. 
+  - [Surge](https://surge.sh) which is free, pretty easy to use and gives you a access to a free domain (e.g, `quantoid.surge.sh`). 
+  
+Server-side Apps and Dashboards
+  - [Shinyapps.io](https://shinyapps.io) has several tiered plans (including free) depending on resource needs.
+  - If money is no object, [RStudio connect](https://www.rstudio.com/products/connect/) may be the right option. 
+  - [Here](https://hosting.analythium.io/how-to-pick-the-right-hosting-option-for-your-shiny-app/) is a discussion of many of the common options. 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

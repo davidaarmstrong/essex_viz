@@ -1,0 +1,34 @@
+Package: shinyjqui
+Type: Package
+Title: 'jQuery UI' Interactions and Effects for Shiny
+Version: 0.3.3.9000
+Authors@R: person("Yang", "Tang", email = "tang_yang@outlook.com",
+  role = c("aut", "cre"))
+Maintainer: Yang Tang <tang_yang@outlook.com>
+Description: An extension to shiny that brings interactions and animation effects from
+    'jQuery UI' library.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.2.0)
+Imports: shiny (>= 0.14.0), htmltools, htmlwidgets, jsonlite
+Suggests: ggplot2, highcharter, knitr, rmarkdown
+URL: https://github.com/yang-tang/shinyjqui
+BugReports: https://github.com/yang-tang/shinyjqui/issues
+RoxygenNote: 7.0.2
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: shinyjqui
+RemoteUsername: yang-tang
+RemoteRef: master
+RemoteSha: 38dce6f08d95af78ac640f177e68ced4d43c7305
+GithubRepo: shinyjqui
+GithubUsername: yang-tang
+GithubRef: master
+GithubSHA1: 38dce6f08d95af78ac640f177e68ced4d43c7305
+NeedsCompilation: no
+Packaged: 2020-03-31 19:56:55 UTC; david
+Author: Yang Tang [aut, cre]
+Built: R 3.6.2; ; 2020-03-31 19:56:56 UTC; unix

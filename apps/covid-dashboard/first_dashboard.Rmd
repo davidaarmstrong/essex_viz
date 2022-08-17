@@ -1,0 +1,76 @@
+---
+title: "Ohio Covid Map"
+output: 
+  flexdashboard::flex_dashboard:
+    theme: yeti
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+library(flexdashboard)
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(DT)
+library(sf)
+library(stringr)
+load("counties.rda")
+
+ohio <- counties %>% 
+  filter(state %in% c("Ohio")) %>% 
+  mutate(text = paste(NAMELSAD, "\n", cases, " cases", sep=""))
+
+load("county_base.rda")
+ohio <- left_join(ohio, county_base)
+library(crosstalk)
+library(d3scatter)
+library(leaflet)
+ohio2 <- ohio %>% 
+  select(county, st, cases, repvote, geometry) %>% 
+  mutate(repvote = repvote*100, 
+         text = paste0(county, "\n", cases, " cases"))
+sohio <- SharedData$new(ohio2)
+```
+
+```{r, result='asis', echo=FALSE}
+## using Hipster Ipsum place-holder text.
+con <- curl::curl("https://hipsum.co/api/?type=hipster-centric&sentences=6")
+hip <- rjson::fromJSON(readLines(con))
+htmltools::p(hip)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+
+```{r}
+plot_ly(sohio, split = ~ text,  color = ~log(cases),  alpha = 1, 
+        hoverinfo="text", hoveron="fill",  showlegend=FALSE)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+d3scatter(sohio, ~repvote, ~cases, width="100%")
+```
+
+### Chart C
+
+```{r}
+sohio %>% 
+  datatable(extensions="Scroller", class="compact",
+            colnames = c("County", "State", "# Cases", "Republican\nVote"), 
+            rownames=FALSE, 
+            options = list(paging=FALSE, pageLength = 20, scrollY = "350px",
+                            columnDefs = list(list(className = 'dt-center', 
+                                                   targets = 0:3), 
+                                              list(visible=FALSE, targets=c(4,5))))) %>% 
+  formatRound(columns = "repvote", digits=0)
+```
+

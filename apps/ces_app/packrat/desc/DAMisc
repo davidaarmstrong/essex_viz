@@ -1,0 +1,28 @@
+Package: DAMisc
+Type: Package
+Title: Dave Armstrong's Miscellaneous Functions
+Version: 1.5.3
+Imports: lattice, grid, car, effects, rstan, gdata, ggplot2, MASS,
+        nnet, splines, xtable, VGAM, boot, optiscale, fANCOVA,
+        AICcmodavg, latticeExtra, coda, glue, clarkeTest
+Suggests: carData
+Authors@R: person("Dave", "Armstrong", email = "dave@quantoid.net", role = c("aut", "cre"))
+Description: Miscellaneous set of functions I use in my teaching either at the University of Western Ontario or the Inter-university Consortium for Political and Social Research (ICPSR) Summer Program in Quantitative Methods.  Broadly, the functions help with presentation and interpretation of LMs and GLMs, but also implement some new tools like Alternating Least Squares Optimal Scaling for dependent variables, a Bayesian analog to the ALSOS algorithm.  There are also tools to help understand interactions in both LMs and binary GLMs. 
+License: GPL (>=2)
+LazyLoad: yes
+RoxygenNote: 7.0.2
+RemoteType: github
+RemoteHost: api.github.com
+RemoteRepo: damisc
+RemoteUsername: davidaarmstrong
+RemoteRef: master
+RemoteSha: abd6bbf889fb718bb1df4802948f7d4ec43e7b78
+GithubRepo: damisc
+GithubUsername: davidaarmstrong
+GithubRef: master
+GithubSHA1: abd6bbf889fb718bb1df4802948f7d4ec43e7b78
+NeedsCompilation: no
+Packaged: 2020-03-26 18:41:54 UTC; david
+Author: Dave Armstrong [aut, cre]
+Maintainer: Dave Armstrong <dave@quantoid.net>
+Built: R 3.6.2; ; 2020-03-26 18:41:55 UTC; unix
